@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jiangdong Ai — Nankai University</title>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Mono:wght@300;400;500&family=Crimson+Pro:ital,wght@0,300;0,400;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a1a;
+    --ink-soft: #444;
+    --ink-faint: #888;
+    --paper: #faf9f7;
+    --paper-warm: #f4f1ec;
+    --rule: #d8d2c8;
+    --accent: #8b3a2a;
+    --accent-soft: #c4644f;
+    --link: #2a5a8b;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Crimson Pro', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 18px;
+    line-height: 1.7;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+  }
+
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* ── HEADER ── */
+  header {
+    position: relative;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 60px 0 48px;
+    overflow: hidden;
+  }
+
+  header::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 39px,
+        rgba(255,255,255,0.03) 39px,
+        rgba(255,255,255,0.03) 40px
+      ),
+      repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 39px,
+        rgba(255,255,255,0.03) 39px,
+        rgba(255,255,255,0.03) 40px
+      );
+  }
+
+  header::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent-soft) 50%, transparent 100%);
+  }
+
+  .header-inner {
+    position: relative;
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    gap: 48px;
+  }
+
+  .header-photo {
+    flex-shrink: 0;
+    width: 120px;
+    height: 150px;
+    border: 2px solid rgba(255,255,255,0.15);
+    object-fit: cover;
+    filter: grayscale(20%);
+  }
+
+  .header-text { flex: 1; }
+
+  .header-name {
+    font-family: 'EB Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .header-name em {
+    font-style: italic;
+    font-weight: 400;
+    color: rgba(255,255,255,0.6);
+    font-size: 1.5rem;
+    display: block;
+    margin-top: 2px;
+    font-family: 'EB Garamond', serif;
+  }
+
+  .header-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent-soft);
+    margin: 14px 0 18px;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 20px;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.65);
+  }
+
+  .header-meta a { color: rgba(255,255,255,0.65); text-decoration: none; }
+  .header-meta a:hover { color: #fff; }
+
+  .header-meta span::before {
+    content: '·';
+    margin-right: 6px;
+    color: var(--accent-soft);
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--ink);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+
+  .nav-inner {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 40px;
+    display: flex;
+    gap: 0;
+  }
+
+  nav a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    text-decoration: none;
+    padding: 12px 16px;
+    transition: color 0.2s;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+  }
+
+  nav a:hover, nav a.active {
+    color: #fff;
+    border-bottom-color: var(--accent-soft);
+  }
+
+  /* ── MAIN ── */
+  main {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 0 40px 80px;
+  }
+
+  section {
+    padding: 56px 0 0;
+  }
+
+  .section-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 0.78rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  /* ── RESEARCH ── */
+  #research p {
+    font-size: 1.05rem;
+    color: var(--ink-soft);
+    max-width: 680px;
+  }
+
+  .research-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    padding: 5px 12px;
+    border: 1px solid var(--rule);
+    color: var(--ink-soft);
+    background: var(--paper-warm);
+  }
+
+  /* ── TIMELINE ── */
+  .timeline { display: flex; flex-direction: column; gap: 0; }
+
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0 24px;
+    padding: 16px 0;
+    border-top: 1px solid var(--rule);
+    animation: slideUp 0.5s ease both;
+  }
+
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .timeline-item:first-child { border-top: none; }
+
+  .timeline-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.72rem;
+    color: var(--ink-faint);
+    padding-top: 3px;
+    line-height: 1.4;
+  }
+
+  .timeline-body strong {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    font-weight: 500;
+    color: var(--ink);
+    display: block;
+  }
+
+  .timeline-body span {
+    font-size: 0.92rem;
+    color: var(--ink-soft);
+  }
+
+  .timeline-body .detail {
+    font-size: 0.85rem;
+    color: var(--ink-faint);
+    font-style: italic;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* ── PAPERS ── */
+  .papers-list { list-style: none; }
+
+  .paper-item {
+    padding: 14px 0;
+    border-top: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 28px 1fr;
+    gap: 0 12px;
+    animation: slideUp 0.4s ease both;
+  }
+
+  .paper-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--ink-faint);
+    padding-top: 4px;
+    text-align: right;
+  }
+
+  .paper-content { }
+
+  .paper-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.02rem;
+    font-weight: 500;
+    color: var(--ink);
+    font-style: italic;
+  }
+
+  .paper-authors {
+    font-size: 0.88rem;
+    color: var(--ink-soft);
+    margin: 2px 0;
+  }
+
+  .paper-authors strong {
+    color: var(--ink);
+    font-weight: 600;
+  }
+
+  .paper-venue {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  .paper-status {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--ink-faint);
+    letter-spacing: 0.05em;
+    margin-left: 8px;
+  }
+
+  .papers-section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 20px 0 4px 40px;
+  }
+
+  /* ── HONORS ── */
+  .honors-list { list-style: none; }
+  .honors-list li {
+    padding: 10px 0;
+    border-top: 1px solid var(--rule);
+    font-size: 0.95rem;
+    color: var(--ink-soft);
+    display: flex;
+    gap: 12px;
+    align-items: baseline;
+  }
+  .honors-list li::before {
+    content: '★';
+    color: var(--accent);
+    font-size: 0.7rem;
+    flex-shrink: 0;
+  }
+
+  /* ── TALKS ── */
+  .talks-list { list-style: none; }
+  .talk-item {
+    display: grid;
+    grid-template-columns: 130px 1fr;
+    gap: 0 24px;
+    padding: 12px 0;
+    border-top: 1px solid var(--rule);
+    font-size: 0.92rem;
+  }
+  .talk-date {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--ink-faint);
+  }
+  .talk-desc { color: var(--ink-soft); }
+  .talk-desc em { color: var(--accent); font-style: normal; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 28px 40px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+  }
+
+  footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .header-inner { flex-direction: column; gap: 24px; padding: 0 24px; }
+    .header-photo { width: 90px; height: 112px; }
+    .header-name { font-size: 2.1rem; }
+    main { padding: 0 24px 60px; }
+    .nav-inner { padding: 0 16px; overflow-x: auto; }
+    .timeline-item, .talk-item { grid-template-columns: 1fr; gap: 4px; }
+    .timeline-date, .talk-date { font-size: 0.65rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HEADER ── -->
+<header>
+  <div class="header-inner">
+    <div class="header-text">
+      <h1 class="header-name">
+        Jiangdong Ai
+        <em>艾江东</em>
+      </h1>
+      <p class="header-role">Associate Professor · School of Mathematical Sciences · Nankai University</p>
+      <div class="header-meta">
+        <span>Tianjin, P.R. China</span>
+        <span><a href="/cdn-cgi/l/email-protection#6a000e2a040b04010b03440f0e1f440904"><span class="__cf_email__" data-cfemail="4e242a0e202f20252f27602b2a3b602d20">[email&#160;protected]</span></a></span>
+        <span><a href="/cdn-cgi/l/email-protection#a0cac9c1cec7c4cfcec7c1c99995e0c7cdc1c9cc8ec3cfcd"><span class="__cf_email__" data-cfemail="e8828189868f8c87868f8981d1dda88f85898184c68b8785">[email&#160;protected]</span></a></span>
+        <span>+86-13296310017</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ── NAV ── -->
+<nav>
+  <div class="nav-inner">
+    <a href="#research">Research</a>
+    <a href="#appointments">Appointments</a>
+    <a href="#education">Education</a>
+    <a href="#papers">Papers</a>
+    <a href="#talks">Talks</a>
+    <a href="#teaching">Teaching</a>
+    <a href="#honors">Honors</a>
+  </div>
+</nav>
+
+<!-- ── MAIN ── -->
+<main>
+
+  <!-- Research Interests -->
+  <section id="research">
+    <h2 class="section-title">Research Interests</h2>
+    <p>
+      My research lies in graph theory and combinatorics. I work on extremal graph theory, including Turán-type problems,
+      degree power sums, and spectral extremal problems for graphs forbidding paths, cycles, or matchings.
+      I am also interested in the structural theory of tournaments and directed graphs, particularly arc-decompositions,
+      path partitions, and long-standing conjectures such as the quasi-kernel conjecture and Seymour's second neighbourhood conjecture.
+      Additional interests include graph coloring and orientation, combinatorial optimization, and Ramsey theory.
+    </p>
+    <div class="research-tags">
+      <span class="tag">Extremal Graph Theory</span>
+      <span class="tag">Turán-type Problems</span>
+      <span class="tag">Spectral Graph Theory</span>
+      <span class="tag">Tournaments &amp; Digraphs</span>
+      <span class="tag">Graph Coloring &amp; Orientation</span>
+      <span class="tag">Combinatorial Optimization</span>
+      <span class="tag">Ramsey Theory</span>
+    </div>
+  </section>
+
+  <!-- Academic Appointments -->
+  <section id="appointments">
+    <h2 class="section-title">Academic Appointments</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">06/2023 – present</div>
+        <div class="timeline-body">
+          <strong>Associate Professor</strong>
+          <span>School of Mathematical Sciences, Nankai University, Tianjin, China</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">07/2022 – 06/2023</div>
+        <div class="timeline-body">
+          <strong>Postdoctoral Research Fellow</strong>
+          <span>The State University of New York, Korea, Incheon, Korea</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">03/2022 – 06/2022</div>
+        <div class="timeline-body">
+          <strong>Postdoctoral Research Fellow</strong>
+          <span>Royal Holloway, University of London, Egham, UK</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Education -->
+  <section id="education">
+    <h2 class="section-title">Education</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">09/2018 – 06/2022</div>
+        <div class="timeline-body">
+          <strong>Ph.D. in Computer Science</strong>
+          <span>Royal Holloway, University of London, Egham, UK</span>
+          <em class="detail">Supervisors: Gregory Gutin, Stefanie Gerke</em>
+          <em class="detail">Thesis: Structure of directed graphs and hypergraphs</em>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">09/2017 – 08/2018</div>
+        <div class="timeline-body">
+          <strong>M.Sci. in Applied Mathematics</strong>
+          <span>Center for Combinatorics, Nankai University, Tianjin, China</span>
+          <em class="detail">Supervisor: Yongtang Shi</em>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">09/2013 – 07/2017</div>
+        <div class="timeline-body">
+          <strong>B.Sci. in Mathematics and Applied Mathematics</strong>
+          <span>Beijing University of Chemical Technology, Beijing, China</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Papers -->
+  <section id="papers">
+    <h2 class="section-title">Publications</h2>
+
+    <div class="papers-section-label">Published</div>
+    <ol class="papers-list">
+
+      <li class="paper-item">
+        <span class="paper-num">1</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.1016/j.dam.2025.11.026" target="_blank">On the degree power sum in P<sub>k</sub>-free graphs</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, F. He, Y. Liu, B. Ning</div>
+          <div class="paper-venue">Discrete Appl. Math. 381 (2026), 66–70</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">2</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.4153/S0008414X25101788" target="_blank">Graph operations and a unified method for Turán-type problems on paths, cycles, and matchings</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, H. Lei, B. Ning, Y. Shi</div>
+          <div class="paper-venue">Can. J. Math., First View (2025), pp. 1–27</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">3</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.1016/j.dam.2025.05.037" target="_blank">Arc-disjoint in- and out-branchings in semicomplete split digraphs</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, Y. Hao, Z. Li, Q. Shao</div>
+          <div class="paper-venue">Discrete Appl. Math. 375 (2025), 259–268</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">4</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.37236/13653" target="_blank">A variable version of the quasi-kernel conjecture</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, X. Liu, F. Peng</div>
+          <div class="paper-venue">Electron. J. Combin. 32 (2025), 2.53</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">5</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.1016/j.dam.2025.05.003" target="_blank">r-Dynamic colorings in graphs from the spectral radius</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. O, L. Zhang</div>
+          <div class="paper-venue">Discrete Appl. Math. 373 (2025), 249–255</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">6</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.37236/12492" target="_blank">The Minimum Spectral Radius of tP₃- or K₅-Saturated Graphs via the Number of 2-Walks</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, P. Liu, S. O, J. Zhang</div>
+          <div class="paper-venue">Electron. J. Combin. 32 (2025), 1.30</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">7</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2403.19737" target="_blank">Piercing Independent Sets in Graphs without Large Induced Matching</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, H. Liu, Z. Xu, Q. Zhou</div>
+          <div class="paper-venue">Electron. J. Combin. 32 (2025), 1.10</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">8</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2407.17051" target="_blank">Number of Subgraphs and Their Converses in Tournaments and New Digraph Polynomials</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, G. Gutin, H. Lei, A. Yeo, Y. Zhou</div>
+          <div class="paper-venue">J. Graph Theory 110(1) (2025), 127–131</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">9</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.1016/j.dam.2024.12.010" target="_blank">A new perspective from hypertournaments to tournaments</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, Q. Dai, Q. Guo, Y. Hu, C. Wang</div>
+          <div class="paper-venue">Discrete Appl. Math. 364 (2025), 136–142</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">10</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.1016/j.laa.2024.03.001" target="_blank">On the spectral radius of graphs with given maximum degree and girth</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Im, J. Kim, H. Lee, S. O, L. Zhang</div>
+          <div class="paper-venue">Linear Algebra Appl. 691 (2024), 182–195</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">11</span>
+        <div class="paper-content">
+          <div class="paper-title">Selected conjectures and open problems on directed graphs</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, G. Gutin, Y. Shi, A. Yeo</div>
+          <div class="paper-venue">Adv. Math. (China) 53 (2024), 1–12</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">12</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2304.10202" target="_blank">Bounds on Maximum Weight Directed Cut</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, A. Yeo, Y. Zhou</div>
+          <div class="paper-venue">SIAM J. Discrete Math. 38 (2024), 2370–2391</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">13</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://doi.org/10.1002/jgt.23050" target="_blank">On Seymour's and Sullivan's second neighbourhood conjectures</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, S. Wang, A. Yeo, Y. Zhou</div>
+          <div class="paper-venue">J. Graph Theory 105(3) (2023), 413–426</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">14</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2207.12157" target="_blank">Results on the Small Quasi-Kernel Conjecture</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, A. Yeo, Y. Zhou</div>
+          <div class="paper-venue">Discrete Math. 346(7) (2023), 113435</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">15</span>
+        <div class="paper-content">
+          <div class="paper-title">Proper orientation, proper biorientation and semi-proper orientation numbers of graphs</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, H. Lei, Y. Shi</div>
+          <div class="paper-venue">J. Comb. Optim. 45 (2023), 40</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">16</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2011.05878" target="_blank">Kings in multipartite hypertournaments</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin</div>
+          <div class="paper-venue">J. Graph Theory 99(1) (2022), 82–89</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">17</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2111.09633" target="_blank">Extended path partition conjecture for semicomplete and acyclic compositions</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, Y. Zhou</div>
+          <div class="paper-venue">Discrete Math. 345(11) (2022), 113019</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">18</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2001.10253" target="_blank">Proximity and remoteness in directed and undirected graphs</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, S. Mafunda</div>
+          <div class="paper-venue">Discrete Math. 344(3) (2021), 112252</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">19</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/1907.06379" target="_blank">Proper orientation number of triangle-free bridgeless outerplanar graphs</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, S. Gerke, G. Gutin, Y. Shi, Z. Taoqiu</div>
+          <div class="paper-venue">J. Graph Theory 95(2) (2020), 256–266</div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">20</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/1803.09880" target="_blank">k-Ary spanning trees contained in tournaments</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, H. Lei, Y. Shi, S. Yao, Z. Zhang</div>
+          <div class="paper-venue">Discrete Appl. Math. 285 (2020), 141–146</div>
+        </div>
+      </li>
+
+    </ol>
+
+    <div class="papers-section-label">Submitted / Preprints</div>
+    <ol class="papers-list">
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2603.10309" target="_blank">Refinements of Alon-Babai-Suzuki-type intersection theorems via non-shadows and binomial support</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, M. Liu</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2603.01368" target="_blank">Cutoff for the inversion walk on tournaments and the state space of restricted inversions</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong></div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title">A weighted cycle-localization inequality</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, B. Chen, M. Chen, T. Zhao</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2601.20516" target="_blank">On a weaker notion of cross <em>t</em>-intersecting families</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, M. Chen, S. Kim, H. Lee</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2512.01676" target="_blank">Feedback vertex sets of digraphs with bounded maximum degree</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, G. Gutin, X. Liu, A. Yeo, Y. Zhou</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2511.15489" target="_blank">Odd Induced Subgraphs in Graphs of Maximum Degree Four</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, Q. Guo, G. Gutin, Y. Hao, A. Yeo</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2510.26426" target="_blank">Note on Long Directed Cycles in Eulerian Digraphs</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, G. Gutin, F. He, A. Yeo</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2509.01428" target="_blank">Generalizations of Ferber-Krivelevich and Gallai Theorems on parity of degrees in induced subgraphs</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, Q. Guo, G. Gutin, Y. Hao, A. Yeo</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2501.06830" target="_blank">Strong Ramsey game on two boards</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, J. Gao, Z. Xu, X. Yan</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title"><a href="https://arxiv.org/abs/2408.07056" target="_blank">A short note on spanning even trees</a></div>
+          <div class="paper-authors"><strong>J. Ai</strong>, Z. Gao, X. Liu, J. Yue</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title">Majority Edge Colouring of Hypergraph</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, F. Nan</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title">An approximate discrepancy version of Baranyai's Theorem</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, F. He, Y. Shi</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title">On perfect matching decomposition with large discrepancy</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, F. He, S. Im, H. Lee</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title">A complete characterization of split digraphs with a strong arc decomposition</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, F. He, Z. Li, Z. Qin, C. Wang</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+      <li class="paper-item">
+        <span class="paper-num">—</span>
+        <div class="paper-content">
+          <div class="paper-title">Solution on strong partition of 2-balanced regular multipartite tournaments</div>
+          <div class="paper-authors"><strong>J. Ai</strong>, F. He, Y. Liu</div>
+          <div class="paper-venue"><span class="paper-status">Submitted</span></div>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- Invited Talks -->
+  <section id="talks">
+    <h2 class="section-title">Invited Talks</h2>
+    <ul class="talks-list">
+      <li class="talk-item">
+        <span class="talk-date">01 Jun 2022</span>
+        <span class="talk-desc"><em>One-Day Meeting in Combinatorics</em>, Mathematical Institute, University of Oxford, UK</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">13 May 2022</span>
+        <span class="talk-desc"><em>Combinatorics Lectures Online</em>, UK</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">11–12 May 2022</span>
+        <span class="talk-desc"><em>2022 Colloquia in Combinatorics</em>, UK</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">09–10 Sep 2021</span>
+        <span class="talk-desc"><em>Heilbronn Annual Conference</em>, UK</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">15–16 Jul 2021</span>
+        <span class="talk-desc"><em>British Early Career Mathematicians' Colloquium</em>, UK</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">08–10 Jun 2020</span>
+        <span class="talk-desc"><em>21st Conference on Integer Programming and Combinatorial Optimization</em>, UK</span>
+      </li>
+    </ul>
+
+    <h2 class="section-title" style="margin-top:36px">Contributed Talks</h2>
+    <ul class="talks-list">
+      <li class="talk-item">
+        <span class="talk-date">Jun 2024</span>
+        <span class="talk-desc"><em>3rd Korea-China Young Scholar's Symposium on Discrete Mathematics</em>, Jeju, Korea</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">Jun 2024</span>
+        <span class="talk-desc"><em>1st Chinese-Southeasteuropean Conference on Discrete Mathematics and Applications</em>, Belgrade, Serbia</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">31 Oct – 03 Nov 2023</span>
+        <span class="talk-desc"><em>3rd East Asia Workshop on Extremal and Structural Graph Theory</em>, Okinawa, Japan</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">12–15 Oct 2023</span>
+        <span class="talk-desc"><em>GTCA</em>, Kunming, China</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">24–28 Jul 2023</span>
+        <span class="talk-desc"><em>ORSC</em>, Taiyuan, China</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">23–28 Jun 2023</span>
+        <span class="talk-desc"><em>International Symposium on Graph Theory and Combinatorial Mathematics</em>, Xi'an, China</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">16 Mar 2022</span>
+        <span class="talk-desc"><em>Departmental Seminar-Colloquium</em>, Royal Holloway, UK</span>
+      </li>
+      <li class="talk-item">
+        <span class="talk-date">03 Jul 2019</span>
+        <span class="talk-desc"><em>Computer Science 'Cake Talk'</em>, Royal Holloway, UK</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- Teaching -->
+  <section id="teaching">
+    <h2 class="section-title">Teaching</h2>
+    <div class="timeline">
+      <div class="timeline-item">
+        <div class="timeline-date">09/2025 – 01/2026</div>
+        <div class="timeline-body">
+          <strong>Advanced Algebra</strong>
+          <span>Nankai University</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">09/2025 – 01/2026</div>
+        <div class="timeline-body">
+          <strong>Graph Theory</strong>
+          <span>Nankai University</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">09/2023 – 12/2023</div>
+        <div class="timeline-body">
+          <strong>Graph Theory</strong>
+          <span>Nankai University</span>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-date">09/2019 – 09/2022</div>
+        <div class="timeline-body">
+          <strong>Teaching Assistant</strong>
+          <span>Department of Computer Science, Royal Holloway, University of London</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Honors -->
+  <section id="honors">
+    <h2 class="section-title">Honors &amp; Awards</h2>
+    <ul class="honors-list">
+      <li>National Second-Level Athlete (Go / 围棋)</li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Jiangdong Ai &nbsp;·&nbsp; School of Mathematical Sciences, Nankai University &nbsp;·&nbsp;
+  <a href="/cdn-cgi/l/email-protection#caa0ae8aa4aba4a1aba3e4afaebfe4a9a4"><span class="__cf_email__" data-cfemail="e68c82a68887888d878fc8838293c88588">[email&#160;protected]</span></a></p>
+</footer>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // Stagger timeline items
+  document.querySelectorAll('.timeline-item, .paper-item').forEach((el, i) => {
+    el.style.animationDelay = (i * 0.04) + 's';
+  });
+
+  // Act
